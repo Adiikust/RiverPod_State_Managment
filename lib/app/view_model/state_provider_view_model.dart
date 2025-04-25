@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SimpleViewModel {
-  static Provider<String> getString = Provider<String>(
-    (ref) {
-      return "Simple RiverPod Show Data";
-    },
-  );
+class StateProviderViewModel {
+  static int value = 0;
+  static final counterValue = StateProvider<int>((ref) {
+    return value;
+  });
 }
