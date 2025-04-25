@@ -5,4 +5,9 @@ class StateProviderViewModel {
   static final counterValue = StateProvider<int>((ref) {
     return value;
   });
+
+  static bool isCheck = false;
+  static final switchValue = StateProvider<bool>((ref) {
+    return isCheck;
+  });
 }
