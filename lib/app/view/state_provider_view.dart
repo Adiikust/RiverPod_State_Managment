@@ -12,13 +12,11 @@ class StateProviderView extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
               "Counter Section",
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
@@ -72,11 +70,11 @@ class StateProviderView extends ConsumerWidget {
                 )
               ],
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             const Text(
               "Switch Section",
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
@@ -93,7 +91,62 @@ class StateProviderView extends ConsumerWidget {
                         .read(StateProviderViewModel.switchValue.notifier)
                         .state = value;
                   });
-            })
+            }),
+            const SizedBox(height: 20),
+            const Text(
+              "Multi state handle with state provider",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            Consumer(builder: (context, ref, child) {
+              print("slider1");
+              final data = ref.watch(StateProviderViewModel.multiSate
+                  .select((state) => state.slider));
+              return Text(
+                double.parse(data.toStringAsFixed(1)).toString(),
+                style: const TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              );
+            }),
+            Consumer(builder: (context, ref, child) {
+              print("slider2");
+              final data = ref.watch(StateProviderViewModel.multiSate
+                  .select((state) => state.slider));
+              return Slider(
+                value: data,
+                onChanged: (value) {
+                  final data = ref.watch(StateProviderViewModel.multiSate);
+                  final slider =
+                      ref.watch(StateProviderViewModel.multiSate.notifier);
+                  slider.state = data.copyWith(slider: value);
+                },
+              );
+            }),
+            const SizedBox(height: 20),
+            Consumer(builder: (context, ref, child) {
+              final color = ref.watch(StateProviderViewModel.multiSate
+                  .select((state) => state.color));
+              return GestureDetector(
+                onTap: () {
+                  print("color");
+                  final data = ref.watch(StateProviderViewModel.multiSate);
+                  final slider =
+                      ref.watch(StateProviderViewModel.multiSate.notifier);
+                  slider.state = data.copyWith(color: !color);
+                },
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  color: color ? Colors.red : Colors.green,
+                ),
+              );
+            }),
           ],
         ),
       ),
