@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_project/app/view/simple_provider_view.dart';
+import 'app/view/state_notifier_provider_view.dart';
 import 'app/view/state_provider_view.dart';
 
 void main() {
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         // home: const SimpleProviderView(),
-        home: const StateProviderView(),
+        // home: const StateProviderView(),
+        home: const StateNotifierProviderView(),
       ),
     );
   }

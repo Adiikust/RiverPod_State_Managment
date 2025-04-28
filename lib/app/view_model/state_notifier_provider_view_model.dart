@@ -1,35 +1,37 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_project/app/model/todo_model.dart';
 
-class StateProviderViewModel {
-  static int value = 0;
-  static final counterValue = StateProvider<int>((ref) {
-    return value;
-  });
-
-  static bool isCheck = false;
-  static final switchValue = StateProvider<bool>((ref) {
-    return isCheck;
-  });
-
-  static bool changeColor = false;
-  static double sliderValue = 0.5;
-
-  static final multiSate = StateProvider<MultiState>((ref) {
-    return MultiState(slider: sliderValue, color: changeColor);
+class StateNotifierProviderViewModel {
+  static final stateNotifierProvider =
+      StateNotifierProvider<TodoNotifier, List<Todo>>((ref) {
+    return TodoNotifier();
   });
 }
 
-class MultiState {
-  final bool color;
-  final double slider;
+class TodoNotifier extends StateNotifier<List<Todo>> {
+  TodoNotifier() : super([]);
 
-  MultiState({required this.color, required this.slider});
+  //TODO:Add
+  addTodo(String todo) {
+    final item =
+        Todo(title: todo, id: DateTime.now().toString(), isCompleted: false);
+    state.add(item);
+    state = state.toList();
+  }
 
-  MultiState copyWith({
-    bool? color,
-    double? slider,
-  }) {
-    return MultiState(
-        color: color ?? this.color, slider: slider ?? this.slider);
+  //TODO:Remove
+  removeTodo(String id) {
+    state.removeWhere((todo) => todo.id == id);
+    state = state.toList();
+  }
+
+  //TODO:Toggle
+  toggleTodo(String id) {
+    state = state.map((todo) {
+      if (todo.id == id) {
+        return todo.copyWith(isCompleted: !todo.isCompleted);
+      }
+      return todo;
+    }).toList();
   }
 }
