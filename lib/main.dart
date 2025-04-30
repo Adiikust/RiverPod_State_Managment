@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_project/app/view/future_provider_post_view.dart';
 import 'package:riverpod_project/app/view/simple_provider_view.dart';
 import 'app/view/future_provider_view.dart';
 import 'app/view/state_notifier_provider_view.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         // home: const SimpleProviderView(),
         // home: const StateProviderView(),
         // home: const StateNotifierProviderView(),
-        home: const FutureProviderView(),
+        // home: const FutureProviderView(),
+        home: const FutureProviderPostView(),
       ),
     );
   }
