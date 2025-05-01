@@ -1,24 +1,13 @@
-class PostModel {
-  int? userId;
-  int? id;
-  String? title;
-  String? body;
+class StreamPostModel {
+  final int id;
+  final String title;
 
-  PostModel({this.userId, this.id, this.title, this.body});
+  StreamPostModel({required this.id, required this.title});
 
-  PostModel.fromJson(Map<String, dynamic> json) {
-    userId = json['userId'];
-    id = json['id'];
-    title = json['title'];
-    body = json['body'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['userId'] = userId;
-    data['id'] = id;
-    data['title'] = title;
-    data['body'] = body;
-    return data;
+  factory StreamPostModel.fromJson(Map<String, dynamic> json) {
+    return StreamPostModel(
+      id: json['id'],
+      title: json['title'],
+    );
   }
 }
